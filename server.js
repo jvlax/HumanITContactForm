@@ -6,8 +6,8 @@ var bodyParser = require("body-parser");
 Object.assign = require('object-assign');
 //var mongoClient = require('mongodb').MongoClient;
 
-var mongoUrl = "mongodb://human:humanRH2018@localhost:27017/contacts";
-var dbName = 'contacts';
+//var mongoUrl = "mongodb://human:humanRH2018@localhost:27017/contacts";
+//var dbName = 'contacts';
 var index = 'www/index.html';
 var css = 'css/style.css';
 var favicon = 'www/favicon.ico';
