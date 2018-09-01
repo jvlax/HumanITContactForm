@@ -2,7 +2,6 @@ var express = require('express');
 var fs = require('fs');
 var express = require('express'),
 	app = express(),
-	morgan = require('morgan');
 var bodyParser = require("body-parser");
 Object.assign = require('object-assign');
 var mongoClient = require('mongodb').MongoClient;
@@ -103,7 +102,6 @@ app.use(bodyParser.urlencoded({
 	extended: false
 }));
 app.use(bodyParser.json());
-app.use(morgan('combined'))
 
 
 app.get('/', function(req, res) {
