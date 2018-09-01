@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Human IT</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://getbootstrap.com/docs/4.1/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="http://getbootstrap.com/docs/4.0/dist/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+  <div class="container center">
+
+    <div class="row">
+      <div class="col-sm-6 offset-sm-3 offBlack">
+        <img src="img/logo-humanit.svg">
+
+        <form method="post" action="/">
+          <div class="form-group">
+            <label class="contactLabel" for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required aria-describedby="emailHelp" placeholder="name@example.com">
+          </div>
+          <div class="form-group">
+            <label class="contactLabel" for="name">Name</label>
+            <input type="text" class="form-control" id="name" name="name" required placeholder="Name">
+          </div>
+          <div class="form-group">
+            <label class="contactLabel" for="company">Company</label>
+            <input type="text" class="form-control" id="company" name="company" required placeholder="Company">
+          </div>
+          <button id="submitButton" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+
+      </div>
+    </div>
+  </div>
+  <footer>
+    <div class="logo"><a href="https://www.openshift.com/"></a></div>
+  </footer>
+
+
+  <script src="js/human.js"></script>
+</body>
+
+</html>
