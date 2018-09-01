@@ -12,9 +12,9 @@ var dbName = 'contacts';
 var index = 'www/index.html';
 var css = 'css/style.css';
 var favicon = 'www/favicon.ico';
-var ip = '0.0.0.0';
-var port = "8181";
-var winner = {};
+//var ip = '0.0.0.0';
+//var port = "8181";
+//var winner = {};
 
 /*
 function dataBase(operation, data) {
