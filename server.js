@@ -1,7 +1,7 @@
 var express = require('express');
 var fs = require('fs');
-var express = require('express'),
-	app = express();
+var express = require('express');
+var app = express();
 var bodyParser = require("body-parser");
 Object.assign = require('object-assign');
 var mongoClient = require('mongodb').MongoClient;
