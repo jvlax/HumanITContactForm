@@ -3,7 +3,6 @@ var fs = require('fs');
 var express = require('express');
 var app = express();
 var bodyParser = require("body-parser");
-Object.assign = require('object-assign');
 //var mongoClient = require('mongodb').MongoClient;
 
 //var mongoUrl = "mongodb://human:humanRH2018@localhost:27017/contacts";
@@ -11,6 +10,7 @@ Object.assign = require('object-assign');
 var index = 'www/index.html';
 var css = 'css/style.css';
 var favicon = 'www/favicon.ico';
+var contactFile = 'contactInfo.csv';
 //var ip = '0.0.0.0';
 //var port = "8181";
 //var winner = {};
@@ -47,53 +47,8 @@ function dataBase(operation, data) {
 */
 
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
-	ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
-	mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
-	mongoURLLabel = "";
+	ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
-	var mongoServiceName = process.env.DATABASE_SERVICE_NAME.toUpperCase(),
-		mongoHost = process.env[mongoServiceName + '_SERVICE_HOST'],
-		mongoPort = process.env[mongoServiceName + '_SERVICE_PORT'],
-		mongoDatabase = process.env[mongoServiceName + '_DATABASE'],
-		mongoPassword = process.env[mongoServiceName + '_PASSWORD']
-	mongoUser = process.env[mongoServiceName + '_USER'];
-
-	if (mongoHost && mongoPort && mongoDatabase) {
-		mongoURLLabel = mongoURL = 'mongodb://';
-		if (mongoUser && mongoPassword) {
-			mongoURL += mongoUser + ':' + mongoPassword + '@';
-		}
-		// Provide UI label that excludes user id and pw
-		mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-		mongoURL += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-
-	}
-}
-
-var db = null,
-	dbDetails = new Object();
-
-var initDb = function(callback) {
-	if (mongoURL == null) return;
-
-	var mongodb = require('mongodb');
-	if (mongodb == null) return;
-
-	mongodb.connect(mongoURL, function(err, conn) {
-		if (err) {
-			callback(err);
-			return;
-		}
-
-		db = conn;
-		dbDetails.databaseName = db.databaseName;
-		dbDetails.url = mongoURLLabel;
-		dbDetails.type = 'MongoDB';
-
-		console.log('Connected to MongoDB at: %s', mongoURL);
-	});
-};
 
 
 app.use('/img', express.static(__dirname + '/img'));
@@ -105,9 +60,6 @@ app.use(bodyParser.json());
 
 
 app.get('/', function(req, res) {
-	if (!db) {
-		initDb(function(err) {});
-	}
 	var html = fs.readFileSync(index);
 	res.writeHead(200, {
 		'Content-Type': 'text/html'
@@ -132,37 +84,21 @@ app.get('/favicon.ico', function(req, res) {
 });
 
 app.get('/winner', function(req, res) {
-	//var html = dataBase("select");
-	//console.log(html);
-	//console.log(html.email);
-	if (!db) {
-		initDb(function(err) {});
-	}
-	if (db) {
-		db.collection('contactInfo').find({}).toArray(function(err, result) {
-			var winner = result[Math.floor(Math.random() * result.length)];
-			res.send('{ winner: ' + winner + '}');
-		});
-	}
-
-	/*res.writeHead(200, {
-		'Content-Type': 'text/html'
-	});
-	res.end("html");
-	*/
+	res.send("OK");
 });
 
 app.post('/', function(req, res) {
-	//dataBase("insert", req.body);
-	var col = db.collection('contactInfo');
-	col.insert(req.body);
+	var contactInfo = req.body.email + "," + req.body.name + "," + req.body.company + "\r\n";
+	fs.appendFileSync(contactFile, contactInfo, function(err) {
+		if (err) {
+			return console.log(err);
+		}
+	});
 	res.redirect('/');
+
 });
 
-initDb(function(err) {
-	console.log('Error connecting to Mongo. Message:\n' + err);
-});
+
 
 app.listen(port, ip);
 console.log("Server running on http://%s:%s", ip, port);
-module.exports = app;
