@@ -6,7 +6,7 @@ var bodyParser = require("body-parser");
 var index = 'www/index.html';
 var css = 'css/style.css';
 var favicon = 'www/favicon.ico';
-var contactFile = 'contactInfo.csv';
+var contactFile = '/contactinfo/contactInfo.csv';
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 	ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 app.use('/img', express.static(__dirname + '/img'));
