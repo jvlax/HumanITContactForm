@@ -111,7 +111,11 @@ app.get('/winners', function(req, res) {
 			var html;
 			for (var i = 0; i < numberOfWinners; i++) {
 				var winner = result[Math.floor(Math.random() * result.length)];
+				console.log(result);
+				console.log("deleting...");
 				delete result.winner;
+				delete result[winner];
+				console.log(result);
 				html += '<div class="winners text-center">' + winner.name + " " + winner.company + '</div><hr/>';
 			}
 			res.send(html);
