@@ -67,8 +67,7 @@ if (mongoURL == null && process.env.DATABASE_SERVICE_NAME) {
 		// Provide UI label that excludes user id and pw
 		mongoURLLabel += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
 		mongoURL += mongoHost + ':' + mongoPort + '/' + mongoDatabase;
-		console.log(mongoURL);
-		console.log(mongoURLLabel);
+
 
 	}
 }
@@ -77,7 +76,9 @@ var db = null,
 	dbDetails = new Object();
 
 var initDb = function(callback) {
-	console.log("initializing db connection");
+	console.log("initializing db connection: ");
+	console.log(mongoURL);
+	console.log("....");
 	if (mongoURL == null) return;
 
 	var mongodb = require('mongodb');
