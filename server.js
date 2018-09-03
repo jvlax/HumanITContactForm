@@ -84,7 +84,9 @@ var initDb = function(callback) {
 	var mongodb = require('mongodb');
 	if (mongodb == null) return;
 
-	mongodb.connect(mongoURL, function(err, conn) {
+	mongodb.connect(mongoURL, {
+		useNewUrlParser: true
+	}, function(err, conn) {
 		if (err) {
 			callback(err);
 			return;
@@ -160,7 +162,7 @@ app.get('/winner', function(req, res) {
 app.post('/', function(req, res) {
 	//dataBase("insert", req.body);
 	var col = db.collection('contactInfo');
-	col.insert(req.body);
+	col.insertOne(req.body);
 	res.redirect('/');
 });
 
