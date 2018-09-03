@@ -113,6 +113,8 @@ app.get('/winners', function(req, res) {
 				var index = Math.floor(Math.random() * result.length);
 				var winner = result[index];
 				delete result[index];
+				console.log("winner");
+				console.log(winner);
 				html += '<div class="winners text-center">' + winner.name + " " + winner.company + '</div><hr/>';
 			}
 			res.send(html);
