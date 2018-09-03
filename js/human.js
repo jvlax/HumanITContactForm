@@ -6,7 +6,7 @@ function getWinners() {
     success: function(result) {
       console.log(result);
       for (var i = 0; i < result.length; i++) {
-        console.log(result.email);
+        console.log(result[i].email);
       }
     }
   });
