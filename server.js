@@ -8,6 +8,7 @@ var index = 'www/index.html';
 var css = 'css/style.css';
 var favicon = 'www/favicon.ico';
 
+var numberOfWinners = process.env.WINNERS;
 var port = process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT || 8080,
 	ip = process.env.IP || process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0',
 	mongoURL = process.env.OPENSHIFT_MONGODB_DB_URL || process.env.MONGO_URL,
@@ -106,8 +107,12 @@ app.get('/winner', function(req, res) {
 	}
 	if (db) {
 		db.collection('contactInfo').find({}).toArray(function(err, result) {
-			var winner = result[Math.floor(Math.random() * result.length)];
-			res.send('{ winner: ' + winner.email + '}');
+			var winners = {};
+			for (var i = 0; i < numberOfWinners; i++) {
+				var winner = result[Math.floor(Math.random() * result.length)];
+				winners.push(winner);
+			}
+			res.send(winners);
 		});
 	}
 });
