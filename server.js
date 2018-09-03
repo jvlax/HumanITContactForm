@@ -110,12 +110,9 @@ app.get('/winners', function(req, res) {
 		db.collection('contactInfo').find({}).toArray(function(err, result) {
 			var html;
 			for (var i = 0; i < numberOfWinners; i++) {
-				var winner = result[Math.floor(Math.random() * result.length)];
-				console.log(result);
-				console.log("deleting...");
-				delete result.winner;
-				delete result[winner];
-				console.log(result);
+				var index = Math.floor(Math.random() * result.length);
+				var winner = result[index];
+				delete result[index];
 				html += '<div class="winners text-center">' + winner.name + " " + winner.company + '</div><hr/>';
 			}
 			res.send(html);
