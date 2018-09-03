@@ -5,6 +5,7 @@ var app = express();
 var bodyParser = require("body-parser");
 
 var index = 'www/index.html';
+var winner = 'www/winner.html';
 var css = 'css/style.css';
 var favicon = 'www/favicon.ico';
 
@@ -101,7 +102,7 @@ app.get('/favicon.ico', function(req, res) {
 	res.end(html);
 });
 
-app.get('/winner', function(req, res) {
+app.get('/winners', function(req, res) {
 	if (!db) {
 		initDb(function(err) {});
 	}
@@ -115,6 +116,14 @@ app.get('/winner', function(req, res) {
 			res.send(winners);
 		});
 	}
+});
+
+app.get('/winner', function(req, res) {
+	var html = fs.readFileSync(winner);
+	res.writeHead(200, {
+		'Content-Type': 'text/css'
+	});
+	res.end(html);
 });
 
 app.post('/', function(req, res) {

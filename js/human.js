@@ -1,6 +1,6 @@
 function getWinners() {
   $.ajax({
-    url: "/winner",
+    url: "/winners",
     cache: false,
     dataType: "text",
     success: function(result) {
