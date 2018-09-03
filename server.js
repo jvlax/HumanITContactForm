@@ -148,7 +148,7 @@ app.get('/winner', function(req, res) {
 	if (db) {
 		db.collection('contactInfo').find({}).toArray(function(err, result) {
 			var winner = result[Math.floor(Math.random() * result.length)];
-			res.send('{ winner: ' + winner + '}');
+			res.send('{ winner: ' + winner.email + '}');
 		});
 	}
 
