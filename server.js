@@ -121,7 +121,7 @@ app.get('/winners', function(req, res) {
 app.get('/winner', function(req, res) {
 	var html = fs.readFileSync(winner);
 	res.writeHead(200, {
-		'Content-Type': 'text/css'
+		'Content-Type': 'text/html'
 	});
 	res.end(html);
 });
