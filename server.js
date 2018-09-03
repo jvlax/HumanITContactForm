@@ -75,6 +75,7 @@ var db = null,
 	dbDetails = new Object();
 
 var initDb = function(callback) {
+	console.log("initializing db connection");
 	if (mongoURL == null) return;
 
 	var mongodb = require('mongodb');
