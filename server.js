@@ -111,8 +111,8 @@ app.get('/winners', function(req, res) {
 			var html;
 			for (var i = 0; i < numberOfWinners; i++) {
 				var winner = result[Math.floor(Math.random() * result.length)];
-				delete result[winner.id];
-				html += '<div class="winners text-center">' + winner.name + " " + winner.company + '</div>';
+				delete result.winner;
+				html += '<div class="winners text-center">' + winner.name + " " + winner.company + '</div><hr/>';
 			}
 			res.send(html);
 		});
