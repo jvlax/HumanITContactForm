@@ -107,7 +107,7 @@ app.get('/winner', function(req, res) {
 	}
 	if (db) {
 		db.collection('contactInfo').find({}).toArray(function(err, result) {
-			var winners = {};
+			var winners = [];
 			for (var i = 0; i < numberOfWinners; i++) {
 				var winner = result[Math.floor(Math.random() * result.length)];
 				winners.push(winner);
