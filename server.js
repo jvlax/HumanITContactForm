@@ -108,7 +108,7 @@ app.get('/winners', function(req, res) {
 	}
 	if (db) {
 		db.collection('contactInfo').find({}).toArray(function(err, result) {
-			var html;
+			var html = "";
 			for (var i = 0; i < numberOfWinners; i++) {
 				var index = Math.floor(Math.random() * result.length);
 				var winner = result[index];
@@ -117,7 +117,9 @@ app.get('/winners', function(req, res) {
 				result = result.filter(function(v) {
 					return v !== ''
 				});
-				html += '<div class="winners text-center">' + winner.name + " " + winner.company + '</div><hr/>';
+				if (winner) {
+					html += '<div class="winners text-center">' + winner.name + " - " + winner.company + '</div><hr/>';
+				}
 			}
 			res.send(html);
 		});
@@ -138,9 +140,40 @@ app.post('/', function(req, res) {
 	res.redirect('/');
 });
 
+app.get('/datadump', function(req, res) {
+	fs.truncate('file/contactInfo.csv', 0, function(err) {
+		if (err) throw err;
+	});
+	if (!db) {
+		initDb(function(err) {});
+	}
+	if (db) {
+		db.collection('contactInfo').find({}).toArray(function(err, result) {
+			createFile(result, function() {
+				res.redirect('/file/contactInfo.csv');
+			});
+		});
+
+	}
+
+});
+
 initDb(function(err) {
 	console.log('Error connecting to Mongo. Message:\n' + err);
 });
+
+function createFile(data, callback) {
+	fs.appendFile('file/contactInfo.csv', 'name,company,email' + "\r\n", function(err) {
+		if (err) throw err;
+	});
+	for (var i = 0; i < data.length; i++) {
+		var contactInfo = data[i].name + "," + data[i].company + "," + data[i].email + "\r\n";
+		fs.appendFile('file/contactInfo.csv', contactInfo, function(err) {
+			if (err) throw err;
+		});
+	}
+	callback();
+};
 
 app.listen(port, ip);
 console.log("Server running on http://%s:%s", ip, port);
