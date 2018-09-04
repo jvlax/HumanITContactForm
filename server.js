@@ -69,6 +69,7 @@ var initDb = function(callback) {
 
 app.use('/img', express.static(__dirname + '/img'));
 app.use('/js', express.static(__dirname + '/js'));
+app.use('/file', express.static(__dirname + '/file'));
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
