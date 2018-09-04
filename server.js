@@ -113,7 +113,6 @@ app.get('/winners', function(req, res) {
 			for (var i = 0; i < numberOfWinners; i++) {
 				var index = Math.floor(Math.random() * result.length);
 				var winner = result[index];
-				console.log("winner: " + winner.name);
 				delete result[index];
 				result = result.filter(function(v) {
 					return v !== ''
