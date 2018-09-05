@@ -77,3 +77,10 @@ hr {
     margin: 1em 0;
     padding: 0;
 }
+.headline {
+  margin-top: 3vh;
+}
+.headlineText {
+  color: white;
+  font-size: 4em;
+}
